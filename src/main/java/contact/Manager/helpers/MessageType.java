@@ -1,4 +1,5 @@
 package contact.Manager.helpers;
 
-public class MessageType {
+public enum MessageType {
+    blue,red,green,yellow
 }
