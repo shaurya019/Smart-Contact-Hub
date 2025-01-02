@@ -1,4 +1,4 @@
 package contact.Manager.services;
 
-public class EmailService {
+public interface EmailService {
 }

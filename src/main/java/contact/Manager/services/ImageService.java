@@ -1,4 +1,4 @@
 package contact.Manager.services;
 
-public class ImageService {
+public interface ImageService {
 }

@@ -1,4 +1,7 @@
 package contact.Manager.entities;
 
-public class Providers {
+public enum Providers {
+    SELF,
+    GOOGLE,
+    GitHUB
 }
