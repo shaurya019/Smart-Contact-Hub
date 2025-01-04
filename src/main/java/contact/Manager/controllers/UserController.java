@@ -39,8 +39,11 @@ public class UserController {
     // user profile page
 
     @RequestMapping(value = "/profile")
-    public String userProfile(Authentication authentication) {
-        String user = Helper.getEmailOfLoggedInUser(authentication);
+    public String userProfile(Model model,Authentication authentication) {
+        String email = Helper.getEmailOfLoggedInUser(authentication);
+
+        User user = userService.getUserByEmail(email);
+        model.addAttribute("loggedInUser",user);
         return "user/profile";
     }
 
