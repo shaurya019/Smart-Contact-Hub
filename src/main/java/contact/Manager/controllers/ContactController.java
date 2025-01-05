@@ -1,11 +1,12 @@
 package contact.Manager.controllers;
 
 
+import contact.Manager.helpers.AppConstants;
 import contact.Manager.services.ImageService;
 import org.slf4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-
+import org.springframework.data.domain.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.ui.Model;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import contact.Manager.entities.Contact;
 import contact.Manager.entities.User;
+
 import contact.Manager.forms.ContactForm;
 import contact.Manager.helpers.Helper;
 import contact.Manager.helpers.Message;
@@ -24,6 +26,7 @@ import contact.Manager.services.UserService;
 
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.UUID;
 
@@ -104,6 +107,23 @@ public class ContactController {
 
         return "redirect:/user/contacts/add";
 
+    }
+
+    @RequestMapping
+    public String viewContacts(
+            @RequestParam(value = "page", defaultValue = "0") int page,
+            @RequestParam(value = "size", defaultValue = AppConstants.PAGE_SIZE + "") int size,
+            @RequestParam(value = "sortBy", defaultValue = "name") String sortBy,
+            @RequestParam(value = "direction", defaultValue = "asc") String direction, Model model,
+    Authentication authentication
+    ){
+        String username = Helper.getEmailOfLoggedInUser(authentication);
+        User user = userService.getUserByEmail(username);
+        Page<Contact> pageContact = contactService.getByUser(user, page, size, sortBy, direction);
+        model.addAttribute("pageContact", pageContact);
+        model.addAttribute("pageSize", AppConstants.PAGE_SIZE);
+
+        return "user/contacts";
     }
 
 }

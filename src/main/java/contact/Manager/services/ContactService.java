@@ -3,6 +3,8 @@ package contact.Manager.services;
 import java.util.List;
 
 import contact.Manager.entities.Contact;
+import org.springframework.data.domain.Page;
+import contact.Manager.entities.User;
 
 public interface ContactService {
     // save contacts
@@ -27,4 +29,6 @@ public interface ContactService {
 
     // get contacts by userId
     List<Contact> getByUserId(String userId);
+
+    Page<Contact> getByUser(User user, int page, int size, String sortField, String sortDirection);
 }
