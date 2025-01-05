@@ -1,6 +1,10 @@
 package contact.Manager.forms;
 
+
+
 import org.springframework.web.multipart.MultipartFile;
+
+import contact.Manager.validators.ValidFile;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -29,7 +33,6 @@ public class ContactForm {
     @Pattern(regexp = "^[0-9]{10}$", message = "Invalid Phone Number")
     private String phoneNumber;
 
-
     @NotBlank(message = "Address is required")
     private String address;
 
@@ -41,6 +44,11 @@ public class ContactForm {
 
     private String linkedInLink;
 
+    // annotation create karenge jo file validate
+    // size
+    // resolution
+
+    @ValidFile(message = "Invalid File")
     private MultipartFile contactImage;
 
 }
